@@ -16,7 +16,7 @@ except Exception:
     api_key = os.getenv("GOOGLE_API_KEY")
 
 client = genai.Client(api_key=api_key)
-MODEL_ID = "gemini-2.0-flash-lite" 
+MODEL_ID = "gemini-2.0-flash" 
 
 # FIXED: Use /tmp/ on Linux (Cloud) but local path on Windows (VS Code)
 db_path = '/tmp/chat_db.json' if os.name != 'nt' else 'chat_db.json'
@@ -107,4 +107,5 @@ if prompt := st.chat_input("Ask an Islamic question..."):
             db.insert({'chat_id': st.session_state.chat_id, 'title': chat_title, 'role': 'assistant', 'content': full_response})
             st.session_state.messages.append({"role": "assistant", "content": full_response})
         except Exception as e:
+
             st.error(f"Error: {e}")
